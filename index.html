@@ -1,22 +1,125 @@
-import React, { useState } from "react"; import { Card, CardContent } from "@/components/ui/card"; import { Button } from "@/components/ui/button"; import { ShoppingCart } from "lucide-react"; import { motion } from "framer-motion";
-
-export default function GlamoraStore() { const [cartCount, setCartCount] = useState(0); const [showCheckout, setShowCheckout] = useState(false);
-
-const products = [ { id: 1, name: "Glamora Premium Shirt", price: 999, image: "https://i.ibb.co/9kXfWFHf/Screenshot-2026-01-27-16-42-53-738-com-miui-gallery-edit.jpg", }, { id: 2, name: "Glamora Formal Collection", price: 1199, image: "https://i.ibb.co/zTV6nCzR/Screenshot-2026-01-31-12-05-28-691-com-whatsapp-edit.jpg", }, ];
-
-const addToCart = () => { setCartCount(cartCount + 1); };
-
-return ( <div className="min-h-screen bg-gray-50"> {/* Header */} <header className="flex justify-between items-center p-4 shadow-md bg-white sticky top-0 z-50"> <h1 className="text-2xl font-bold">Glamora</h1> <div className="flex items-center gap-2"> <ShoppingCart /> <span className="font-semibold">{cartCount}</span> </div> </header>
-
-{/* Hero Section */}
-  <section className="relative">
-    <img
-      src="https://share.google/OU4Bh8vqLdzZbCfbu"
-      alt="Hero"
-      className="w-full h-[60vh] object-cover"
-    />
-    <div className="absolute inset-0 bg-black/40 flex flex-col justify-center items-center text-white text-center p-4">
-      <motion.h2
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Glamora | Affordable Luxury Fashion</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;scroll-behavior:smooth}
+body{background:#f8f6f3;color:#222}
+header{position:fixed;width:100%;top:0;background:#fff;padding:15px 40px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 10px rgba(0,0,0,0.05);z-index:1000}
+header h1{font-size:24px;font-weight:600;letter-spacing:2px}
+nav a{margin-left:20px;text-decoration:none;color:#333;font-size:14px}
+.hero{height:100vh;background:url('https://i.ibb.co/mVC6VzFz/file-000000001738720b86c5ece1368cb9b3.png') center/cover no-repeat;display:flex;align-items:center;justify-content:center;text-align:center;color:#fff;padding:20px}
+.hero-content{background:rgba(0,0,0,0.4);padding:40px;border-radius:20px}
+.hero h2{font-size:40px;font-weight:500;margin-bottom:20px}
+.btn{padding:12px 28px;background:#d6cfc7;color:#000;text-decoration:none;border-radius:30px;font-size:14px;font-weight:500;transition:0.3s}
+.btn:hover{background:#bfb6ac}
+section{padding:80px 40px}
+h2.section-title{text-align:center;margin-bottom:40px;font-weight:500}
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:30px}
+.product-card{background:#fff;padding:20px;border-radius:20px;box-shadow:0 10px 20px rgba(0,0,0,0.05);transition:0.3s}
+.product-card:hover{transform:translateY(-5px)}
+.product-card img{width:100%;border-radius:15px}
+.product-card h3{font-size:16px;margin:15px 0}
+.product-card select{width:100%;padding:8px;margin-bottom:10px;border-radius:10px;border:1px solid #ccc}
+.product-card button{width:100%;padding:10px;background:#000;color:#fff;border:none;border-radius:20px;cursor:pointer}
+.categories{display:flex;flex-wrap:wrap;justify-content:center;gap:20px}
+.category{padding:15px 25px;background:#eae6e1;border-radius:30px;font-size:14px}
+.about, .reviews, .newsletter{text-align:center;max-width:800px;margin:auto}
+.review{background:#fff;padding:20px;margin:15px 0;border-radius:15px;box-shadow:0 5px 15px rgba(0,0,0,0.05)}
+.newsletter input{padding:12px;width:70%;max-width:300px;border-radius:30px;border:1px solid #ccc;margin-right:10px}
+.newsletter button{padding:12px 20px;border:none;background:#000;color:#fff;border-radius:30px}
+footer{background:#111;color:#fff;padding:40px;text-align:center}
+footer a{color:#d6cfc7;text-decoration:none;margin:0 10px;font-size:14px}
+.cart{position:fixed;bottom:20px;right:20px;background:#000;color:#fff;padding:15px 20px;border-radius:30px;cursor:pointer}
+@media(max-width:768px){
+.hero h2{font-size:28px}
+header{padding:15px 20px}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>GLAMORA</h1>
+<nav>
+<a href="#products">Shop</a>
+<a href="#about">About</a>
+<a href="#contact">Contact</a>
+</nav>
+</header><div class="hero">
+<div class="hero-content">
+<h2>Elegance Redefined. Confidence Amplified.</h2>
+<a href="#products" class="btn">Shop Now</a>
+</div>
+</div><section id="products">
+<h2 class="section-title">Featured Products</h2>
+<div class="products">
+<div class="product-card">
+<img src="https://i.ibb.co/4g48Z4sr/IMG-20260108-124647.png" alt="Product 1">
+<h3>Classic Formal Shirt</h3>
+<p>₹1,499</p>
+<select>
+<option>Select Size</option>
+<option>L</option>
+<option>XL</option>
+<option>2XL</option>
+<option>3XL</option>
+<option>4XL</option>
+</select>
+<button onclick="addToCart()">Add to Cart</button>
+</div>
+<div class="product-card">
+<img src="https://i.ibb.co/0Vq8n4jY/IMG-20260108-125314.png" alt="Product 2">
+<h3>Elegant Trendy Top</h3>
+<p>₹1,699</p>
+<select>
+<option>Select Size</option>
+<option>L</option>
+<option>XL</option>
+<option>2XL</option>
+<option>3XL</option>
+<option>4XL</option>
+</select>
+<button onclick="addToCart()">Add to Cart</button>
+</div>
+</div>
+</section><section>
+<h2 class="section-title">Categories</h2>
+<div class="categories">
+<div class="category">Formal Wear</div>
+<div class="category">Casual Wear</div>
+<div class="category">New Arrivals</div>
+<div class="category">Best Sellers</div>
+</div>
+</section><section id="about" class="about">
+<h2 class="section-title">About Glamora</h2>
+<p>Glamora is a modern women’s fashion brand focused on delivering premium quality designs with elegant silhouettes. We believe in affordable luxury — fashion that empowers confidence, grace, and individuality.</p>
+</section><section class="reviews">
+<h2 class="section-title">Customer Reviews</h2>
+<div class="review">“Absolutely love the fabric quality and fitting!” – Aditi</div>
+<div class="review">“Glamora makes me feel confident and classy.” – Sneha</div>
+</section><section class="newsletter">
+<h2 class="section-title">Join Our Newsletter</h2>
+<input type="email" placeholder="Enter your email">
+<button>Subscribe</button>
+</section><footer id="contact">
+<p>Contact: support@glamora.com</p>
+<p>
+<a href="#">Instagram</a> |
+<a href="#">Return Policy</a> |
+<a href="#">Privacy Policy</a>
+</p>
+<p>© 2026 Glamora. All Rights Reserved.</p>
+</footer><div class="cart" onclick="checkout()">Cart (0)</div><script>
+let cartCount = 0;
+function addToCart(){
+cartCount++;
+document.querySelector('.cart').innerText = `Cart (${cartCount})`;
+alert('Item added to cart');
+}
+function checkout(){
+alert('Secure Checkout Integration Required (Connect Razorpay / Stripe Here)');
+}
+</script></body>
+</html>
