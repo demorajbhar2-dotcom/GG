@@ -1,0 +1,22 @@
+import React, { useState } from "react"; import { Card, CardContent } from "@/components/ui/card"; import { Button } from "@/components/ui/button"; import { ShoppingCart } from "lucide-react"; import { motion } from "framer-motion";
+
+export default function GlamoraStore() { const [cartCount, setCartCount] = useState(0); const [showCheckout, setShowCheckout] = useState(false);
+
+const products = [ { id: 1, name: "Glamora Premium Shirt", price: 999, image: "https://i.ibb.co/9kXfWFHf/Screenshot-2026-01-27-16-42-53-738-com-miui-gallery-edit.jpg", }, { id: 2, name: "Glamora Formal Collection", price: 1199, image: "https://i.ibb.co/zTV6nCzR/Screenshot-2026-01-31-12-05-28-691-com-whatsapp-edit.jpg", }, ];
+
+const addToCart = () => { setCartCount(cartCount + 1); };
+
+return ( <div className="min-h-screen bg-gray-50"> {/* Header */} <header className="flex justify-between items-center p-4 shadow-md bg-white sticky top-0 z-50"> <h1 className="text-2xl font-bold">Glamora</h1> <div className="flex items-center gap-2"> <ShoppingCart /> <span className="font-semibold">{cartCount}</span> </div> </header>
+
+{/* Hero Section */}
+  <section className="relative">
+    <img
+      src="https://share.google/OU4Bh8vqLdzZbCfbu"
+      alt="Hero"
+      className="w-full h-[60vh] object-cover"
+    />
+    <div className="absolute inset-0 bg-black/40 flex flex-col justify-center items-center text-white text-center p-4">
+      <motion.h2
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
