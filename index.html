@@ -1,125 +1,143 @@
-<!DOCTYPE html><html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Glamora | Affordable Luxury Fashion</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;scroll-behavior:smooth}
-body{background:#f8f6f3;color:#222}
-header{position:fixed;width:100%;top:0;background:#fff;padding:15px 40px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 10px rgba(0,0,0,0.05);z-index:1000}
-header h1{font-size:24px;font-weight:600;letter-spacing:2px}
-nav a{margin-left:20px;text-decoration:none;color:#333;font-size:14px}
-.hero{height:100vh;background:url('https://i.ibb.co/mVC6VzFz/file-000000001738720b86c5ece1368cb9b3.png') center/cover no-repeat;display:flex;align-items:center;justify-content:center;text-align:center;color:#fff;padding:20px}
-.hero-content{background:rgba(0,0,0,0.4);padding:40px;border-radius:20px}
-.hero h2{font-size:40px;font-weight:500;margin-bottom:20px}
-.btn{padding:12px 28px;background:#d6cfc7;color:#000;text-decoration:none;border-radius:30px;font-size:14px;font-weight:500;transition:0.3s}
-.btn:hover{background:#bfb6ac}
-section{padding:80px 40px}
-h2.section-title{text-align:center;margin-bottom:40px;font-weight:500}
-.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:30px}
-.product-card{background:#fff;padding:20px;border-radius:20px;box-shadow:0 10px 20px rgba(0,0,0,0.05);transition:0.3s}
-.product-card:hover{transform:translateY(-5px)}
-.product-card img{width:100%;border-radius:15px}
-.product-card h3{font-size:16px;margin:15px 0}
-.product-card select{width:100%;padding:8px;margin-bottom:10px;border-radius:10px;border:1px solid #ccc}
-.product-card button{width:100%;padding:10px;background:#000;color:#fff;border:none;border-radius:20px;cursor:pointer}
-.categories{display:flex;flex-wrap:wrap;justify-content:center;gap:20px}
-.category{padding:15px 25px;background:#eae6e1;border-radius:30px;font-size:14px}
-.about, .reviews, .newsletter{text-align:center;max-width:800px;margin:auto}
-.review{background:#fff;padding:20px;margin:15px 0;border-radius:15px;box-shadow:0 5px 15px rgba(0,0,0,0.05)}
-.newsletter input{padding:12px;width:70%;max-width:300px;border-radius:30px;border:1px solid #ccc;margin-right:10px}
-.newsletter button{padding:12px 20px;border:none;background:#000;color:#fff;border-radius:30px}
-footer{background:#111;color:#fff;padding:40px;text-align:center}
-footer a{color:#d6cfc7;text-decoration:none;margin:0 10px;font-size:14px}
-.cart{position:fixed;bottom:20px;right:20px;background:#000;color:#fff;padding:15px 20px;border-radius:30px;cursor:pointer}
-@media(max-width:768px){
-.hero h2{font-size:28px}
-header{padding:15px 20px}
-}
-</style>
-</head>
-<body>
-<header>
-<h1>GLAMORA</h1>
-<nav>
-<a href="#products">Shop</a>
-<a href="#about">About</a>
-<a href="#contact">Contact</a>
-</nav>
-</header><div class="hero">
-<div class="hero-content">
-<h2>Elegance Redefined. Confidence Amplified.</h2>
-<a href="#products" class="btn">Shop Now</a>
+import React, { useState } from "react"; import { motion } from "framer-motion"; import { Card, CardContent } from "@/components/ui/card"; import { Button } from "@/components/ui/button"; import { ShoppingCart } from "lucide-react";
+
+export default function GlamoraWebsite() { const [cart, setCart] = useState([]); const [selectedSize, setSelectedSize] = useState({});
+
+const products = [ { id: 1, name: "Elegant White Formal Shirt", price: 1499, image: "https://i.ibb.co/4g48Z4sr/IMG-20260108-124647.png", }, { id: 2, name: "Chic Black Trendy Top", price: 1799, image: "https://i.ibb.co/0Vq8n4jY/IMG-20260108-125314.png", }, ];
+
+const addToCart = (product) => { if (!selectedSize[product.id]) { alert("Please select size"); return; } setCart([...cart, { ...product, size: selectedSize[product.id] }]); };
+
+const handleCheckout = () => { alert("Redirecting to secure payment gateway..."); };
+
+return ( <div className="bg-[#f5f5f2] text-gray-800 scroll-smooth"> {/* Hero Section */} <section className="relative h-screen flex items-center justify-center text-center"> <img
+src="https://i.ibb.co/mVC6VzFz/file-000000001738720b86c5ece1368cb9b3.png"
+alt="Hero"
+className="absolute w-full h-full object-cover brightness-75"
+/> <div className="relative z-10 text-white px-6"> <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }} className="text-4xl md:text-6xl font-bold mb-6" > Glamora — Affordable Luxury for Modern Women </motion.h1> <Button className="rounded-2xl px-8 py-6 text-lg bg-white text-black hover:bg-gray-200"> Shop Now </Button> </div> </section>
+
+{/* Categories */}
+  <section className="py-16 px-6 md:px-20 text-center">
+    <h2 className="text-3xl font-semibold mb-10">Shop by Category</h2>
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+      {["Formal Wear", "Casual Wear", "New Arrivals", "Best Sellers"].map(
+        (cat, index) => (
+          <motion.div
+            key={index}
+            whileHover={{ scale: 1.05 }}
+            className="bg-white rounded-2xl shadow-md p-6 cursor-pointer"
+          >
+            {cat}
+          </motion.div>
+        )
+      )}
+    </div>
+  </section>
+
+  {/* Featured Products */}
+  <section className="py-16 px-6 md:px-20 bg-white">
+    <h2 className="text-3xl font-semibold text-center mb-12">
+      Featured Products
+    </h2>
+    <div className="grid md:grid-cols-2 gap-10">
+      {products.map((product) => (
+        <Card key={product.id} className="rounded-2xl shadow-lg">
+          <CardContent className="p-6">
+            <img
+              src={product.image}
+              alt={product.name}
+              className="rounded-2xl mb-4 w-full object-cover"
+            />
+            <h3 className="text-xl font-medium mb-2">{product.name}</h3>
+            <p className="mb-4 text-lg font-semibold">₹{product.price}</p>
+            <div className="flex gap-2 mb-4 flex-wrap">
+              {["L", "XL", "2XL", "3XL", "4XL"].map((size) => (
+                <button
+                  key={size}
+                  onClick={() =>
+                    setSelectedSize({ ...selectedSize, [product.id]: size })
+                  }
+                  className={`px-4 py-2 border rounded-xl ${
+                    selectedSize[product.id] === size
+                      ? "bg-black text-white"
+                      : "bg-white"
+                  }`}
+                >
+                  {size}
+                </button>
+              ))}
+            </div>
+            <Button
+              onClick={() => addToCart(product)}
+              className="w-full rounded-2xl bg-black text-white hover:bg-gray-800"
+            >
+              <ShoppingCart className="mr-2 h-5 w-5" /> Add to Cart
+            </Button>
+          </CardContent>
+        </Card>
+      ))}
+    </div>
+  </section>
+
+  {/* About Us */}
+  <section className="py-16 px-6 md:px-20 text-center bg-[#f5f5f2]">
+    <h2 className="text-3xl font-semibold mb-6">About Glamora</h2>
+    <p className="max-w-3xl mx-auto text-lg leading-relaxed">
+      Glamora is a modern women’s fashion brand dedicated to elegance,
+      confidence, and affordable luxury. We create stylish formal shirts and
+      trendy outfits designed for women aged 18–40 who love classy yet
+      comfortable fashion.
+    </p>
+  </section>
+
+  {/* Reviews */}
+  <section className="py-16 px-6 md:px-20 bg-white text-center">
+    <h2 className="text-3xl font-semibold mb-10">Customer Reviews</h2>
+    <div className="grid md:grid-cols-3 gap-6">
+      {["Absolutely love the quality!", "Perfect fit and elegant style.", "Luxury feel at affordable price."].map(
+        (review, i) => (
+          <div key={i} className="bg-[#f5f5f2] p-6 rounded-2xl shadow">
+            ⭐⭐⭐⭐⭐
+            <p className="mt-4">{review}</p>
+          </div>
+        )
+      )}
+    </div>
+  </section>
+
+  {/* Newsletter */}
+  <section className="py-16 px-6 md:px-20 text-center bg-black text-white">
+    <h2 className="text-3xl font-semibold mb-6">Join Our Newsletter</h2>
+    <input
+      type="email"
+      placeholder="Enter your email"
+      className="px-4 py-3 rounded-xl text-black w-72 mb-4"
+    />
+    <div>
+      <Button className="rounded-2xl bg-white text-black hover:bg-gray-200">
+        Subscribe
+      </Button>
+    </div>
+  </section>
+
+  {/* Cart & Checkout */}
+  <section className="fixed bottom-6 right-6 bg-white p-4 rounded-2xl shadow-xl">
+    <p className="font-semibold">Cart: {cart.length} items</p>
+    <Button
+      onClick={handleCheckout}
+      className="mt-2 rounded-xl bg-black text-white hover:bg-gray-800"
+    >
+      Secure Checkout
+    </Button>
+  </section>
+
+  {/* Footer */}
+  <footer className="bg-gray-900 text-white py-10 px-6 md:px-20 text-center">
+    <p>Contact: support@glamora.com</p>
+    <p className="mt-2">Instagram: @glamora.fashion</p>
+    <p className="mt-2">Return Policy | Privacy Policy</p>
+    <p className="mt-4 text-sm text-gray-400">
+      © {new Date().getFullYear()} Glamora. All rights reserved.
+    </p>
+  </footer>
 </div>
-</div><section id="products">
-<h2 class="section-title">Featured Products</h2>
-<div class="products">
-<div class="product-card">
-<img src="https://i.ibb.co/4g48Z4sr/IMG-20260108-124647.png" alt="Product 1">
-<h3>Classic Formal Shirt</h3>
-<p>₹1,499</p>
-<select>
-<option>Select Size</option>
-<option>L</option>
-<option>XL</option>
-<option>2XL</option>
-<option>3XL</option>
-<option>4XL</option>
-</select>
-<button onclick="addToCart()">Add to Cart</button>
-</div>
-<div class="product-card">
-<img src="https://i.ibb.co/0Vq8n4jY/IMG-20260108-125314.png" alt="Product 2">
-<h3>Elegant Trendy Top</h3>
-<p>₹1,699</p>
-<select>
-<option>Select Size</option>
-<option>L</option>
-<option>XL</option>
-<option>2XL</option>
-<option>3XL</option>
-<option>4XL</option>
-</select>
-<button onclick="addToCart()">Add to Cart</button>
-</div>
-</div>
-</section><section>
-<h2 class="section-title">Categories</h2>
-<div class="categories">
-<div class="category">Formal Wear</div>
-<div class="category">Casual Wear</div>
-<div class="category">New Arrivals</div>
-<div class="category">Best Sellers</div>
-</div>
-</section><section id="about" class="about">
-<h2 class="section-title">About Glamora</h2>
-<p>Glamora is a modern women’s fashion brand focused on delivering premium quality designs with elegant silhouettes. We believe in affordable luxury — fashion that empowers confidence, grace, and individuality.</p>
-</section><section class="reviews">
-<h2 class="section-title">Customer Reviews</h2>
-<div class="review">“Absolutely love the fabric quality and fitting!” – Aditi</div>
-<div class="review">“Glamora makes me feel confident and classy.” – Sneha</div>
-</section><section class="newsletter">
-<h2 class="section-title">Join Our Newsletter</h2>
-<input type="email" placeholder="Enter your email">
-<button>Subscribe</button>
-</section><footer id="contact">
-<p>Contact: support@glamora.com</p>
-<p>
-<a href="#">Instagram</a> |
-<a href="#">Return Policy</a> |
-<a href="#">Privacy Policy</a>
-</p>
-<p>© 2026 Glamora. All Rights Reserved.</p>
-</footer><div class="cart" onclick="checkout()">Cart (0)</div><script>
-let cartCount = 0;
-function addToCart(){
-cartCount++;
-document.querySelector('.cart').innerText = `Cart (${cartCount})`;
-alert('Item added to cart');
-}
-function checkout(){
-alert('Secure Checkout Integration Required (Connect Razorpay / Stripe Here)');
-}
-</script></body>
-</html>
+
+); }
