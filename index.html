@@ -1,142 +1,97 @@
-import React, { useState } from "react"; import { motion } from "framer-motion"; import { Card, CardContent } from "@/components/ui/card"; import { Button } from "@/components/ui/button"; import { ShoppingCart } from "lucide-react";
+              import React from "react"; import { motion } from "framer-motion"; import { ShoppingCart, Heart } from "lucide-react";
 
-export default function GlamoraWebsite() { const [cart, setCart] = useState([]); const [selectedSize, setSelectedSize] = useState({});
+export default function KkoyalWebsite() { const products = [ { id: 1, name: "Elegant White Formal Shirt", price: "₹1,299", image: "https://images.unsplash.com/photo-1581044777550-4cfa60707c03", }, { id: 2, name: "Blush Pink Office Top", price: "₹1,499", image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab", }, { id: 3, name: "Classic Grey Chic Shirt", price: "₹1,399", image: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d", }, ];
 
-const products = [ { id: 1, name: "Elegant White Formal Shirt", price: 1499, image: "https://i.ibb.co/4g48Z4sr/IMG-20260108-124647.png", }, { id: 2, name: "Chic Black Trendy Top", price: 1799, image: "https://i.ibb.co/0Vq8n4jY/IMG-20260108-125314.png", }, ];
+return ( <div className="bg-[#f8f5f2] text-gray-800 min-h-screen"> {/* Navbar */} <nav className="flex justify-between items-center px-6 py-4 bg-white shadow-sm sticky top-0 z-50"> <h1 className="text-2xl font-bold tracking-wide">Kkoyal</h1> <div className="flex gap-6 text-sm font-medium"> <a href="#home" className="hover:text-pink-400">Home</a> <a href="#shop" className="hover:text-pink-400">Shop</a> <a href="#about" className="hover:text-pink-400">About</a> <a href="#contact" className="hover:text-pink-400">Contact</a> </div> </nav>
 
-const addToCart = (product) => { if (!selectedSize[product.id]) { alert("Please select size"); return; } setCart([...cart, { ...product, size: selectedSize[product.id] }]); };
-
-const handleCheckout = () => { alert("Redirecting to secure payment gateway..."); };
-
-return ( <div className="bg-[#f5f5f2] text-gray-800 scroll-smooth"> {/* Hero Section */} <section className="relative h-screen flex items-center justify-center text-center"> <img
-src="https://i.ibb.co/mVC6VzFz/file-000000001738720b86c5ece1368cb9b3.png"
-alt="Hero"
-className="absolute w-full h-full object-cover brightness-75"
-/> <div className="relative z-10 text-white px-6"> <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }} className="text-4xl md:text-6xl font-bold mb-6" > Glamora — Affordable Luxury for Modern Women </motion.h1> <Button className="rounded-2xl px-8 py-6 text-lg bg-white text-black hover:bg-gray-200"> Shop Now </Button> </div> </section>
-
-{/* Categories */}
-  <section className="py-16 px-6 md:px-20 text-center">
-    <h2 className="text-3xl font-semibold mb-10">Shop by Category</h2>
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-      {["Formal Wear", "Casual Wear", "New Arrivals", "Best Sellers"].map(
-        (cat, index) => (
-          <motion.div
-            key={index}
-            whileHover={{ scale: 1.05 }}
-            className="bg-white rounded-2xl shadow-md p-6 cursor-pointer"
-          >
-            {cat}
-          </motion.div>
-        )
-      )}
-    </div>
+{/* Hero Section */}
+  <section
+    id="home"
+    className="relative flex items-center justify-center text-center h-[85vh] bg-cover bg-center"
+    style={{
+      backgroundImage:
+        "url('https://images.unsplash.com/photo-1483985988355-763728e1935b')",
+    }}
+  >
+    <div className="bg-black/30 absolute inset-0"></div>
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8 }}
+      className="relative z-10 text-white px-4"
+    >
+      <h2 className="text-4xl md:text-5xl font-bold mb-4">
+        Classy. Confident. Kkoyal.
+      </h2>
+      <p className="mb-6 text-lg">
+        Premium Women’s Fashion for Everyday Elegance
+      </p>
+      <button className="bg-pink-400 hover:bg-pink-500 px-8 py-3 rounded-2xl text-white font-medium shadow-lg">
+        Shop Now
+      </button>
+    </motion.div>
   </section>
 
-  {/* Featured Products */}
-  <section className="py-16 px-6 md:px-20 bg-white">
-    <h2 className="text-3xl font-semibold text-center mb-12">
-      Featured Products
-    </h2>
-    <div className="grid md:grid-cols-2 gap-10">
+  {/* Products Section */}
+  <section id="shop" className="py-16 px-6">
+    <h3 className="text-3xl font-semibold text-center mb-10">
+      Our Collection
+    </h3>
+    <div className="grid md:grid-cols-3 gap-8">
       {products.map((product) => (
-        <Card key={product.id} className="rounded-2xl shadow-lg">
-          <CardContent className="p-6">
-            <img
-              src={product.image}
-              alt={product.name}
-              className="rounded-2xl mb-4 w-full object-cover"
-            />
-            <h3 className="text-xl font-medium mb-2">{product.name}</h3>
-            <p className="mb-4 text-lg font-semibold">₹{product.price}</p>
-            <div className="flex gap-2 mb-4 flex-wrap">
-              {["L", "XL", "2XL", "3XL", "4XL"].map((size) => (
-                <button
-                  key={size}
-                  onClick={() =>
-                    setSelectedSize({ ...selectedSize, [product.id]: size })
-                  }
-                  className={`px-4 py-2 border rounded-xl ${
-                    selectedSize[product.id] === size
-                      ? "bg-black text-white"
-                      : "bg-white"
-                  }`}
-                >
-                  {size}
-                </button>
-              ))}
+        <motion.div
+          key={product.id}
+          whileHover={{ scale: 1.03 }}
+          className="bg-white rounded-2xl shadow-md overflow-hidden"
+        >
+          <img
+            src={product.image}
+            alt={product.name}
+            className="w-full h-80 object-cover"
+          />
+          <div className="p-4">
+            <h4 className="font-semibold text-lg">{product.name}</h4>
+            <p className="text-gray-600 mb-4">{product.price}</p>
+            <div className="flex justify-between items-center">
+              <button className="bg-gray-900 text-white px-4 py-2 rounded-xl flex items-center gap-2 text-sm">
+                <ShoppingCart size={16} /> Add to Cart
+              </button>
+              <Heart className="text-gray-400 hover:text-pink-400 cursor-pointer" />
             </div>
-            <Button
-              onClick={() => addToCart(product)}
-              className="w-full rounded-2xl bg-black text-white hover:bg-gray-800"
-            >
-              <ShoppingCart className="mr-2 h-5 w-5" /> Add to Cart
-            </Button>
-          </CardContent>
-        </Card>
+          </div>
+        </motion.div>
       ))}
     </div>
   </section>
 
-  {/* About Us */}
-  <section className="py-16 px-6 md:px-20 text-center bg-[#f5f5f2]">
-    <h2 className="text-3xl font-semibold mb-6">About Glamora</h2>
-    <p className="max-w-3xl mx-auto text-lg leading-relaxed">
-      Glamora is a modern women’s fashion brand dedicated to elegance,
-      confidence, and affordable luxury. We create stylish formal shirts and
-      trendy outfits designed for women aged 18–40 who love classy yet
-      comfortable fashion.
+  {/* About Section */}
+  <section id="about" className="bg-white py-16 px-6 text-center">
+    <h3 className="text-3xl font-semibold mb-6">About Kkoyal</h3>
+    <p className="max-w-2xl mx-auto text-gray-600 leading-relaxed">
+      Kkoyal brings you elegant, affordable and trendy women’s fashion.
+      Designed for modern women who love sophistication with comfort.
     </p>
   </section>
 
-  {/* Reviews */}
-  <section className="py-16 px-6 md:px-20 bg-white text-center">
-    <h2 className="text-3xl font-semibold mb-10">Customer Reviews</h2>
-    <div className="grid md:grid-cols-3 gap-6">
-      {["Absolutely love the quality!", "Perfect fit and elegant style.", "Luxury feel at affordable price."].map(
-        (review, i) => (
-          <div key={i} className="bg-[#f5f5f2] p-6 rounded-2xl shadow">
-            ⭐⭐⭐⭐⭐
-            <p className="mt-4">{review}</p>
-          </div>
-        )
-      )}
-    </div>
-  </section>
-
-  {/* Newsletter */}
-  <section className="py-16 px-6 md:px-20 text-center bg-black text-white">
-    <h2 className="text-3xl font-semibold mb-6">Join Our Newsletter</h2>
-    <input
-      type="email"
-      placeholder="Enter your email"
-      className="px-4 py-3 rounded-xl text-black w-72 mb-4"
-    />
-    <div>
-      <Button className="rounded-2xl bg-white text-black hover:bg-gray-200">
+  {/* Contact Section */}
+  <section id="contact" className="py-16 px-6 text-center">
+    <h3 className="text-3xl font-semibold mb-6">Stay Connected</h3>
+    <p className="text-gray-600 mb-6">Subscribe for latest offers & updates</p>
+    <div className="flex justify-center gap-2">
+      <input
+        type="email"
+        placeholder="Enter your email"
+        className="px-4 py-3 rounded-2xl border w-64"
+      />
+      <button className="bg-pink-400 hover:bg-pink-500 text-white px-6 py-3 rounded-2xl">
         Subscribe
-      </Button>
+      </button>
     </div>
-  </section>
-
-  {/* Cart & Checkout */}
-  <section className="fixed bottom-6 right-6 bg-white p-4 rounded-2xl shadow-xl">
-    <p className="font-semibold">Cart: {cart.length} items</p>
-    <Button
-      onClick={handleCheckout}
-      className="mt-2 rounded-xl bg-black text-white hover:bg-gray-800"
-    >
-      Secure Checkout
-    </Button>
   </section>
 
   {/* Footer */}
-  <footer className="bg-gray-900 text-white py-10 px-6 md:px-20 text-center">
-    <p>Contact: support@glamora.com</p>
-    <p className="mt-2">Instagram: @glamora.fashion</p>
-    <p className="mt-2">Return Policy | Privacy Policy</p>
-    <p className="mt-4 text-sm text-gray-400">
-      © {new Date().getFullYear()} Glamora. All rights reserved.
-    </p>
+  <footer className="bg-gray-900 text-white text-center py-6 mt-10">
+    <p>© 2026 Kkoyal. All Rights Reserved.</p>
   </footer>
 </div>
 
